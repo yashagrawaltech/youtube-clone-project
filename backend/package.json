@@ -1,0 +1,31 @@
+{
+    "name": "backend",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "bun --watch --require dotenv/config index.ts",
+        "test": "bun --require dotenv/config index.ts",
+        "start": "bun index.ts",
+        "format": "prettier --write .",
+        "check": "prettier --check ."
+    },
+    "devDependencies": {
+        "@types/bun": "latest",
+        "prettier": "^3.5.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "debug": "^4.4.0",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "express-validator": "^7.2.1",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.14.0"
+    }
+}
