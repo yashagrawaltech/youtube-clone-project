@@ -4,14 +4,18 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "dev": "bun --watch --require dotenv/config index.ts",
-        "test": "bun --require dotenv/config index.ts",
-        "start": "bun index.ts",
-        "format": "prettier --write .",
-        "check": "prettier --check ."
+        "dev": "bun --watch index.ts --require dotenv/config",
+        "start": "bun run index.ts --require dotenv/config",
+        "test": "bun test",
+        "format": "bunx prettier --write .",
+        "check": "bunx prettier --check ."
     },
     "devDependencies": {
         "@types/bun": "latest",
+        "@types/cookie-parser": "^1.4.8",
+        "@types/cors": "^2.8.17",
+        "@types/debug": "^4.1.12",
+        "@types/express": "^5.0.1",
         "prettier": "^3.5.3"
     },
     "peerDependencies": {
