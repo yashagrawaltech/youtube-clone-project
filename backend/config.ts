@@ -7,4 +7,5 @@ export const config = {
     frontend_urls: process.env.FRONTEND_URLS
         ? process.env.FRONTEND_URLS.split(',').map((url) => url.trim())
         : [],
+    mongodb_uri: process.env.MONGODB_URI?.toString() || '',
 };

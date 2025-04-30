@@ -7,6 +7,7 @@ import { ApiResponse, devlog } from './utils';
 import { asyncHandler } from './handlers/asyncHandler';
 import { httpResponseCodes } from './constants';
 import cors from 'cors';
+import { connectToMongoDB, getDBStatus } from './db';
 
 // App Initialization
 const app = express();
@@ -55,7 +56,7 @@ app.use(
 app.use(errorHandler);
 
 // Server
-const server = app.listen(config.port, () => {
+const server = app.listen(config.port, async () => {
     const addr = server.address();
     if (addr && typeof addr === 'object') {
         const { address, port } = addr as AddressInfo;
@@ -66,4 +67,12 @@ const server = app.listen(config.port, () => {
         console.log('Server is running...');
     }
     devlog('debugger is running');
+    await connectToMongoDB();
+    const DBStatus = getDBStatus();
+    devlog(`
+        DB Connection Status: ${DBStatus.isConnected},
+        DB Host: ${DBStatus.host}
+        DB Name: ${DBStatus.name}
+        DB Ready State: ${DBStatus.readyState}
+    `);
 });

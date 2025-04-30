@@ -31,3 +31,19 @@ export type ErrorHandler = (
     res: Response,
     next: NextFunction
 ) => void;
+
+export interface ConnectToDBInterface {
+    uri: string;
+    connect: () => void;
+    handleDisconnection: () => void;
+    handleConnectionError: (error: unknown) => Promise<void>;
+    handleAppTermination: () => void;
+    getDBConnectionStatus: () => DBStatus;
+}
+
+export type DBStatus = {
+    isConnected: boolean;
+    readyState: number;
+    host: string;
+    name: string;
+};
