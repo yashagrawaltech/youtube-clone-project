@@ -9,6 +9,9 @@ import { httpResponseCodes } from './constants';
 import cors from 'cors';
 import { connectToMongoDB, getDBStatus } from './db';
 
+// Routers
+import healthRouter from './routes/health.routes';
+
 // App Initialization
 const app = express();
 
@@ -36,6 +39,7 @@ app.use(
 );
 
 // Routes
+app.use('/health', healthRouter);
 
 // Not Found Route
 app.use(
