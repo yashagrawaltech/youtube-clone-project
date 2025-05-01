@@ -3,7 +3,7 @@ import { config } from './config';
 import type { AddressInfo } from 'net';
 import cookieParser from 'cookie-parser';
 import { errorHandler } from './handlers/errorHandler';
-import { ApiResponse, devlog } from './utils';
+import { ApiResponse, devlog, prolog, testlog } from './utils';
 import { asyncHandler } from './handlers/asyncHandler';
 import { httpResponseCodes } from './constants';
 import cors from 'cors';
@@ -31,8 +31,10 @@ app.use(
 app.use(
     asyncHandler(async (req, res, next) => {
         res.on('finish', () => {
-            // Log the request method, URL, and response status code when the response is finished only in development mode
+            // Log the request method, URL, and response status code when the response is finished
             devlog(`[${req.method}] ${req.originalUrl} -> ${res.statusCode}`);
+            prolog(`[${req.method}] ${req.originalUrl} -> ${res.statusCode}`);
+            testlog(`[${req.method}] ${req.originalUrl} -> ${res.statusCode}`);
         });
         next();
     })
@@ -73,10 +75,7 @@ const server = app.listen(config.port, async () => {
     devlog('debugger is running');
     await connectToMongoDB();
     const DBStatus = getDBStatus();
-    devlog(`
-        DB Connection Status: ${DBStatus.isConnected},
-        DB Host: ${DBStatus.host}
-        DB Name: ${DBStatus.name}
-        DB Ready State: ${DBStatus.readyState}
-    `);
+    devlog(
+        `\nDB Connection Status: ${DBStatus.isConnected}, \nDB Host: ${DBStatus.host}, \nDB Name: ${DBStatus.name}, \nDB Ready State: ${DBStatus.readyState}`
+    );
 });

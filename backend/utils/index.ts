@@ -2,9 +2,15 @@ import debug from 'debug';
 import { config } from '../config';
 import type { ApiErrorInterface, ApiResponseInterface } from '../types';
 
-// Debugger
+// Debuggers
 export const devlog =
-    config.node_env === 'development' ? debug('development:app') : () => {};
+    config.node_env === 'development' ? debug('app:development') : () => {};
+
+export const prolog =
+    config.node_env === 'production' ? debug('app:production') : () => {};
+
+export const testlog =
+    config.node_env === 'testing' ? debug('app:testing') : () => {};
 
 export class ApiResponse<T> implements ApiResponseInterface<T> {
     public success: boolean;
